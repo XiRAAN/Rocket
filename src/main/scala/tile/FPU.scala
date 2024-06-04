@@ -695,6 +695,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int) extends Module
 
 class FPUFMAPipe(val latency: Int, val t: FType)
                 (implicit p: Parameters) extends FPUModule()(p) with ShouldBeRetimed {
+  override def desiredName = s"FPUFMAPipe_l${latency}_f${t.ieeeWidth}"
   require(latency>0)
 
   val io = IO(new Bundle {
