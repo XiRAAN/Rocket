@@ -1036,17 +1036,10 @@ vectorQueue.io.dequeueInfo.ready := io.vpu_issue.ready
   csr.io.inst(0) := (if (usingCompressed) Cat(Mux(wb_reg_raw_inst(1, 0).andR, wb_reg_inst >> 16, 0.U), wb_reg_raw_inst(15, 0)) else wb_reg_inst)
    
    //zxr: Used to monitor the operating status of the VPU
-  val table = RegInit(0.U(4.W))
-  //when(vectorQueue.io.enqueueInfo.fire && !io.vpu_commit.commit_vld){
-  //  table := table + 1.U
-  //}.elsewhen(!vectorQueue.io.enqueueInfo.fire && io.vpu_commit.commit_vld){
-  //  table := table - 1.U
-  //}.otherwise{
-  //  table := table
-  //}
+  val table = RegInit(0.U(5.W))
   when(vectorQueue.io.enqueueInfo.fire && io.vpu_commit.commit_vld){
     table := table
-  }.elsewhen(vectorQueue.io.enqueueInfo.fire ) {table := table + 1.U}
+  }.elsewhen(vectorQueue.io.enqueueInfo.fire) {table := table + 1.U}
   .elsewhen(io.vpu_commit.commit_vld) {table := table - 1.U}
   when (vpu_xcpt){table := 0.U}
   //if vpu busy, satll rocket，jyf
