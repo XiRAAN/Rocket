@@ -66,7 +66,7 @@ case class RocketCoreParams(
   mimpid: Int = 0x20181004, // release date in BCD
   mulDiv: Option[MulDivParams] = Some(MulDivParams()),
   fpu: Option[FPUParams] = Some(FPUParams()),
-  haveCease: Boolean = true, // non-standard CEASE instruction
+  haveCease: Boolean = false, // non-standard CEASE instruction //zxr:change for test
   debugROB: Boolean = false // if enabled, uses a C++ debug ROB to generate trace-with-wdata
 ) extends CoreParams {
   val lgPauseCycles = 5
